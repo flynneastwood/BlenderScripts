@@ -7,6 +7,12 @@ A repo of scripts I'm building for Blender.
 
 -RenderBool
   Use that on booleans objects to disable their visibility in Cycles. Will also set the shading to wire to improve result in viewport.
+  
+-SoloLight
+ Select a light to isolate it from all other sources of lights. Good to tweak each light contribution to the scene.
+
+-EzSmooth
+  Select a light to isolate it from all other sources of lights. Good to tweak each light contribution to the scene.
 
 I'm gradually integrating them into a Tony Tools package with all the scripts.
 
