@@ -9,7 +9,7 @@ A repo of scripts I'm building for Blender.
   Use that on booleans objects to disable their visibility in Cycles. Will also set the shading to wire to improve result in viewport.
   
 -SoloLight
- Select a light to isolate it from all other sources of lights. Good to tweak each light contribution to the scene.
+  Select a light to isolate it from all other sources of lights. Good to tweak each light contribution to the scene.
 
 -EzSmooth
   An operator to toggle on the smoothing of your mesh but also display the autosmooth for better controls.
