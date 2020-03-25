@@ -12,7 +12,7 @@ A repo of scripts I'm building for Blender.
  Select a light to isolate it from all other sources of lights. Good to tweak each light contribution to the scene.
 
 -EzSmooth
-  Select a light to isolate it from all other sources of lights. Good to tweak each light contribution to the scene.
+  An operator to toggle on the smoothing of your mesh but also display the autosmooth for better controls.
 
 I'm gradually integrating them into a Tony Tools package with all the scripts.
 
