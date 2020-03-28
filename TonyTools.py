@@ -13,13 +13,13 @@ bl_info = {
 import bpy
 
 
-def quickBool():
+def quickBool():  # Select two objects and run. Boolean modifier goes to active object and put first selection as the bool operator.
 
     selection_names = []
     for obj in bpy.context.selected_objects:
         selection_names.append(obj.name)
 
-    if len(selection_names) <= 1:
+    if len(selection_names) <= 1:  #Testing selection
         print('You need two objects to make it work')
     elif len(selection_names) >= 3:
         print('More than two objects selected')  
@@ -30,12 +30,12 @@ def quickBool():
         BoolOb = bpy.context.selected_objects[0]
 
 
-        bpy.ops.object.modifier_add(type='BOOLEAN')
+        bpy.ops.object.modifier_add(type='BOOLEAN')  #Add the bool modifier to active and set the operator from first selection.
         activeOb.modifiers["Boolean"].object = BoolOb
         BoolOb.display_type = 'WIRE'
         renderBool()
 
-def renderBool():
+def renderBool():        # Disable render properties for bool operators.
     BoolOb = bpy.context.selected_objects[0]
     BoolOb.hide_render = True
     BoolOb.cycles_visibility.camera = False
