@@ -1,0 +1,55 @@
+import bpy
+
+context = bpy.context
+
+# loop over selected objects
+selection = [thing for thing in context.selected_objects] # Make a copy, since the context will change later
+
+# iterating over the length of the list, instead of the list directly, allows to edit the list on-the-fly
+for i in range(0,len(selection)):
+    obj = selection[i]
+    
+    # only act on image empties
+    if  obj.type=='EMPTY' and obj.data and obj.data.type=='IMAGE':
+        image = obj.data
+        aspect_ratio = image.size[0]/image.size[1]
+        pos = obj.location
+        rot = obj.rotation_euler
+        
+        # make new mesh
+        bpy.ops.mesh.primitive_plane_add(size=obj.empty_display_size, location=pos, rotation=rot)
+        the_plane = context.object # big assumption there...
+        if aspect_ratio >=1:
+            the_plane.scale[1] /= aspect_ratio
+        else:
+            the_plane.scale[0] *= aspect_ratio
+        the_plane.name = image.name
+        
+        # Make a new material
+        image_material = bpy.data.materials.new(the_plane.name)
+        image_material.use_nodes = True
+        image_material.node_tree.nodes.clear() # Delete existing nodes - we will start from scratch
+        out_mat_node = image_material.node_tree.nodes.new(type="ShaderNodeOutputMaterial")
+        im_mat_node = image_material.node_tree.nodes.new(type="ShaderNodeTexImage")
+        im_mat_node.image = image
+        # move one of the nodes, to make the tree human-readable
+        out_mat_node.location[0] = im_mat_node.width + out_mat_node.width/2 
+        # for simplicity, image texture is connected directly to material output
+        image_material.node_tree.links.new(im_mat_node.outputs['Color'], out_mat_node.inputs['Surface'])
+        
+        # add a material slot to the plane and set the new material
+        bpy.ops.object.material_slot_add()
+        the_plane.material_slots[0].material = image_material
+        
+        # edit the 'selection' list to replace the empty with the plane
+        selection[i] = the_plane
+        # Now we are done with the empty
+        bpy.data.objects.remove(obj)
+
+
+# reset the selection to whatever it was before, but with planes instead of empties
+for thing in context.selected_objects:
+    thing.select_set(False)
+    
+for thing in selection:
+    thing.select_set(True)
