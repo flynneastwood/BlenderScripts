@@ -26,7 +26,7 @@ class ExportGLB(bpy.types.Operator):
             os.makedirs(glb_path)
             
         #Export as GlTF
-        bpy.ops.export_scene.gltf(filepath=fn + ".glb", use_selection=True)
+        bpy.ops.export_scene.gltf(filepath=fn + ".glb", use_selection=True, export_apply=True)
 
         #Set model nack to initial location
         selection.location.xyz = initialLocation
