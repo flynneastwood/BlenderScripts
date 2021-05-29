@@ -26,7 +26,7 @@ class ExportOBJ(bpy.types.Operator):
             os.makedirs(obj_path)
             
         #Export as OBJ
-        bpy.ops.export_scene.obj(filepath=fn + ".obj", use_selection=True)
+        bpy.ops.export_scene.obj(filepath=fn + ".obj", use_selection=True, use_mesh_modifiers=True)
 
         #Set model nack to initial location
         selection.location.xyz = initialLocation
