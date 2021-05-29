@@ -26,7 +26,7 @@ class ExportCollada(bpy.types.Operator):
             os.makedirs(dae_path)
             
         #Export as COLLADA
-        bpy.ops.wm.collada_export(filepath=fn)
+        bpy.ops.wm.collada_export(filepath=fn, apply_modifiers=True)
 
         #Set model nack to initial location
         selection.location.xyz = initialLocation
