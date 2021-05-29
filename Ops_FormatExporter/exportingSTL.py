@@ -26,7 +26,7 @@ class ExportSTL(bpy.types.Operator):
             os.makedirs(stl_path)
             
         #Export as STl
-        bpy.ops.export_mesh.stl(filepath=fn + ".stl", use_selection=True)
+        bpy.ops.export_mesh.stl(filepath=fn + ".stl", use_selection=True, use_mesh_modifiers=True)
 
         #Set model nack to initial location
         selection.location.xyz = initialLocation
